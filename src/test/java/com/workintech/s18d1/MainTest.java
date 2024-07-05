@@ -6,6 +6,7 @@ import com.workintech.s18d1.entity.BreadType;
 import com.workintech.s18d1.entity.Burger;
 import com.workintech.s18d1.exceptions.BurgerErrorResponse;
 import com.workintech.s18d1.exceptions.BurgerException;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.junit.jupiter.api.BeforeEach;
@@ -114,6 +115,7 @@ class MainTest {
         assertThrows(BurgerException.class, () -> burgerDao.findById(999L));
     }
 
+
     @Test
     void testUpdate() {
         Burger burger = new Burger();
@@ -138,7 +140,7 @@ class MainTest {
         TypedQuery<Burger> query = mock(TypedQuery.class);
         when(entityManager.createQuery(anyString(), eq(Burger.class))).thenReturn(query);
         when(query.getResultList()).thenReturn(Arrays.asList(new Burger(), new Burger()));
-        List<Burger> burgers = burgerDao.findByPrice(10);
+        List<Burger> burgers = burgerDao.findByPrice(10.0);
         assertEquals(2, burgers.size());
     }
 
@@ -172,6 +174,7 @@ class MainTest {
 
         assertEquals(expectedMessage, errorResponse.getMessage(), "The retrieved message should match the expected message.");
     }
+
 
     @Test
     void testBurgerExceptionCreation() {
